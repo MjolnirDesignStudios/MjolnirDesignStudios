@@ -1,0 +1,284 @@
+          <div className="content-area">
+            {activeView === 'overview' && (
+              <>
+                {/* FIRST ROW - 2 Boxes */}
+                <div className="stats-grid-row row-2 slide-up" style={{ animationDelay: '0.1s' }}>
+                  <StatCard
+                    icon={FileText}
+                    label="Active Contracts"
+                    value={activeContracts.toString()}
+                    subtitle={`${expiringContracts} expiring soon`}
+                    trend={8.0}
+                    iconColor="icon-blue"
+                    onClick={() => setActiveView('contracts')}
+                  />
+                  <StatCard
+                    icon={TrendingUp}
+                    label="Total Contract Value"
+                    value={`$${(totalContractValue / 1000).toFixed(0)}k`}
+                    subtitle="Annual recurring"
+                    trend={0}
+                    iconColor="icon-green"
+                    onClick={() => setActiveView('contracts')}
+                  />
+                </div>
+
+                {/* SECOND ROW - 4 Boxes with $Value/Count */}
+                <div className="stats-grid-row row-4 slide-up" style={{ animationDelay: '0.2s' }}>
+                  <StatCard
+                    icon={DollarSign}
+                    label="Total Revenue"
+                    value={`$${(totalRevenue / 1000).toFixed(1)}k`}
+                    subtitle="This month"
+                    trend={12.5}
+                    iconColor="icon-blue"
+                    onClick={() => setActiveView('payments')}
+                  />
+                  <StatCard
+                    icon={CheckCircle}
+                    label="Successful Payments"
+                    value={`$${(totalRevenue / 1000).toFixed(1)}k / ${successfulCount}`}
+                    subtitle={`${successfulCount} payments completed`}
+                    trend={15.3}
+                    iconColor="icon-green"
+                    onClick={() => { setActiveView('payments'); setFilterStatus('paid'); }}
+                  />
+                  <StatCard
+                    icon={Clock}
+                    label="Pending Payments"
+                    value={`$${(pendingAmount / 1000).toFixed(1)}k / ${pendingCount}`}
+                    subtitle={`${pendingCount} awaiting payment`}
+                    trend={-3.2}
+                    iconColor="icon-yellow"
+                    onClick={() => { setActiveView('payments'); setFilterStatus('pending'); }}
+                  />
+                  <StatCard
+                    icon={XCircle}
+                    label="Failed Payments"
+                    value={`$${(failedAmount / 1000).toFixed(1)}k / ${failedCount}`}
+                    subtitle={`${failedCount} need attention`}
+                    trend={-8.1}
+                    iconColor="icon-red"
+                    onClick={() => { setActiveView('payments'); setFilterStatus('failed'); }}
+                  />
+                </div>
+
+                <div className="charts-grid">
+                  <div className="chart-card">
+                    <div className="chart-header">
+                      <div className="chart-title">Revenue & Expenses</div>
+                      <div className="chart-subtitle">Monthly performance comparison</div>
+                    </div>
+                    <ResponsiveContainer width="100%" height={320}>
+                      <AreaChart data={monthlyRevenue}>
+                        <defs>
+                          <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor={statusColors.paid} stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor={statusColors.paid} stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? 'rgba(229, 231, 235, 0.1)' : 'rgba(0,0,0,0.05)'} />
+                        <XAxis dataKey="month" stroke={darkMode ? '#9ca3af' : '#6b7280'} style={{ fontFamily: 'Inter', fontWeight: 500 }} />
+                        <YAxis stroke={darkMode ? '#9ca3af' : '#6b7280'} style={{ fontFamily: 'Inter', fontWeight: 500 }} />
+                        <Tooltip contentStyle={{ background: darkMode ? '#2d3139' : '#ffffff', border: `2px solid ${darkMode ? '#9ca3af' : '#e5e7eb'}`, borderRadius: '12px', color: darkMode ? '#ffffff' : '#111827', fontFamily: 'Inter', fontWeight: 500 }} />
+                        <Legend wrapperStyle={{ fontFamily: 'Inter', fontWeight: 700 }} />
+                        <Area type="monotone" dataKey="revenue" stroke={statusColors.paid} strokeWidth={3} fill="url(#revenueGradient)" />
+                        <Area type="monotone" dataKey="expenses" stroke={statusColors.failed} strokeWidth={3} fillOpacity={0.1} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                  <div className="chart-card">
+                    <div className="chart-header">
+                      <div className="chart-title">Payment Status</div>
+                      <div className="chart-subtitle">Current distribution</div>
+                    </div>
+                    <ResponsiveContainer width="100%" height={320}>
+                      <PieChart>
+                        <Pie data={paymentStatusData} cx="50%" cy="50%" innerRadius={80} outerRadius={120} paddingAngle={3} dataKey="value">
+                          {paymentStatusData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <Tooltip contentStyle={{ background: darkMode ? '#2d3139' : '#ffffff', border: `2px solid ${darkMode ? '#9ca3af' : '#e5e7eb'}`, borderRadius: '12px', color: darkMode ? '#ffffff' : '#111827', fontFamily: 'Inter', fontWeight: 500 }} />
+                        <Legend wrapperStyle={{ fontFamily: 'Inter', fontWeight: 700 }} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                <div className="table-card">
+                  <div className="chart-header">
+                    <div className="chart-title">Recent Transactions</div>
+                    <div className="chart-subtitle">Latest payment activity</div>
+                  </div>
+                  <div className="table-filters">
+                    <div className="search-box">
+                      <Search size={18} />
+                      <input type="text" placeholder="Search by client or invoice..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                    </div>
+                    <select className="filter-select" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} title="Filter by payment status">
+                      <option value="all">All Statuses</option>
+                      <option value="paid">Paid</option>
+                      <option value="pending">Pending</option>
+                      <option value="failed">Failed</option>
+                    </select>
+                  </div>
+                  <table className="data-table">
+                    <thead>
+                      <tr>
+                        <th>Invoice</th>
+                        <th>Client</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredPayments.slice(0, 8).map((payment) => (
+                        <tr key={payment.id} onClick={() => setActiveView('payments')} style={{ cursor: 'pointer' }}>
+                          <td className="invoice-id">{payment.invoiceId}</td>
+                          <td className="client-name">{payment.client}</td>
+                          <td>{payment.description}</td>
+                          <td className="amount">${payment.amount.toLocaleString()}</td>
+                          <td>{new Date(payment.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                          <td><StatusBadge status={payment.status} /></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
+
+            {activeView === 'profile' && (
+              <div className="profile-grid">
+                <div className="profile-card">
+                  <div className="profile-avatar-section">
+                    <div className="profile-avatar-large">{userData.name.split(' ').map(n => n[0]).join('')}</div>
+                    <div className="profile-name">{userData.name}</div>
+                    <div className="profile-email">{userData.email}</div>
+                  </div>
+                  <button className="mjolnir-button-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                    <Edit size={18} />Edit Profile
+                  </button>
+                </div>
+                <div className="profile-card">
+                  <div className="chart-title" style={{ marginBottom: '24px' }}>Account Information</div>
+                  <div className="info-row">
+                    <div className="info-label">Full Name</div>
+                    <div className="info-value">{userData.name}</div>
+                  </div>
+                  <div className="info-row">
+                    <Mail size={18} color="var(--text-tertiary)" />
+                    <div className="info-label">Email</div>
+                    <div className="info-value">{userData.email}</div>
+                  </div>
+                  <div className="info-row">
+                    <Briefcase size={18} color="var(--text-tertiary)" />
+                    <div className="info-label">Company</div>
+                    <div className="info-value">{userData.company}</div>
+                  </div>
+                  <div className="info-row">
+                    <User size={18} color="var(--text-tertiary)" />
+                    <div className="info-label">Role</div>
+                    <div className="info-value">{userData.role}</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeView === 'workshops' && (
+              <div className="table-card">
+                <div className="chart-header">
+                  <div className="chart-title">Workshop Signups</div>
+                  <div className="chart-subtitle">Mjolnir Forge workshop registrations</div>
+                </div>
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Type</th>
+                      <th>Scheduled Date</th>
+                      <th>Status</th>
+                      <th>Amount</th>
+                      <th>Source</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {mockWorkshopSignups.map((signup) => (
+                      <tr key={signup.id}>
+                        <td className="client-name">{signup.name}</td>
+                        <td>{signup.email}</td>
+                        <td>
+                          <span style={{
+                            backgroundColor: signup.workshopType === 'live' ? '#7DF9FF20' : '#F0FF4220',
+                            color: signup.workshopType === 'live' ? '#7DF9FF' : '#F0FF42',
+                            border: `1px solid ${signup.workshopType === 'live' ? '#7DF9FF40' : '#F0FF4240'}`,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            padding: '4px 10px',
+                            borderRadius: '8px',
+                            fontSize: '11px',
+                            fontWeight: 700,
+                            textTransform: 'capitalize'
+                          }}>
+                            {signup.workshopType}
+                          </span>
+                        </td>
+                        <td>{new Date(signup.scheduledDate).toLocaleDateString()}</td>
+                        <td>
+                          <StatusBadge status={signup.status as any} />
+                        </td>
+                        <td className="amount">${signup.amount}</td>
+                        <td>
+                          <span style={{
+                            backgroundColor: 'var(--bg-secondary)',
+                            color: 'var(--text-tertiary)',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            padding: '4px 8px',
+                            borderRadius: '6px',
+                            fontSize: '11px',
+                            fontWeight: 600,
+                            textTransform: 'capitalize'
+                          }}>
+                            {signup.source === 'calendly' && <Calendar size={12} />}
+                            {signup.source === 'qr' && <QrCode size={12} />}
+                            {signup.source === 'direct' && <Mail size={12} />}
+                            {signup.source}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {(activeView === 'payments' || activeView === 'contracts' || activeView === 'clients' || activeView === 'analytics') && (
+              <div className="table-card">
+                <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-tertiary)' }}>
+                  <div style={{ fontSize: '48px', marginBottom: '20px' }}>🚀</div>
+                  <div style={{ fontSize: '20px', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '10px' }}>
+                    {activeView.charAt(0).toUpperCase() + activeView.slice(1)} Integration Ready
+                  </div>
+                  <div style={{ fontSize: '14px' }}>
+                    {activeView === 'payments' && `Showing ${filterStatus === 'all' ? 'all' : filterStatus} payment transactions with Stripe integration`}
+                    {activeView === 'contracts' && 'Contract management with renewal tracking'}
+                    {activeView === 'clients' && 'Client CRM with HubSpot integration'}
+                    {activeView === 'analytics' && 'Advanced analytics and reporting dashboard'}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

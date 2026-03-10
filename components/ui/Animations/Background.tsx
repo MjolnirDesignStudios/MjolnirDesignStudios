@@ -2,23 +2,15 @@
 "use client";
 
 import React, { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { 
-  Stars, 
-  Cloud, 
-  Float, 
-  Environment,
-  PerspectiveCamera 
+import { Canvas } from "@react-three/fiber";
+import {
+  Stars,
+  Cloud,
+  Float,
 } from "@react-three/drei";
-import { Mjolnir3D } from "./Mjolnir3D";
-import { useScroll } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+// Mjolnir3D hammer model — planned for v2 (needs .glb asset + component)
 
 export default function Background() {
-  const { scrollYProgress } = useScroll();
   const canvasRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -55,10 +47,8 @@ export default function Background() {
         <ambientLight intensity={0.3} />
         <directionalLight position={[10, 10, 5]} intensity={0.8} color="#00f0ff" />
 
-        {/* THE HAMMER */}
-        <Mjolnir3D scrollProgress={scrollYProgress} />
-
-        {/* Optional: <Environment preset="night" /> */}
+        {/* Mjolnir3D hammer — placeholder until .glb model is ready */}
+        {/* <Mjolnir3D scrollProgress={scrollYProgress} /> */}
       </Canvas>
 
       {/* Dark overlay so text is readable */}

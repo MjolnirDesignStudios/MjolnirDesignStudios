@@ -1,8 +1,8 @@
 // data/index.ts — FINAL & SAFE
 export const navItems = [
   { name: "About", link: "/#about" },
-  { name: "Blocks", link: "/#blocks" },
-  { name: "Forge", link: "/#forge-demo" },
+  { name: "Services", link: "/#blocks" },
+  { name: "Forge", link: "/#forge" },
   { name: "Pricing", link: "/#pricing" },
   { name: "Tech", link: "/#tech" },
 ];
@@ -146,7 +146,7 @@ export const skills = [
 export const teamMembers = [
   {
     id: 1,
-    name: "Lord Silverhammer",
+    name: "Hammr",
     role: "Founder & President",
     description: "The visionary leader of Mjolnir Design Studios...",
     avatar: "/Images/avatar-hero.jpg",
@@ -155,37 +155,37 @@ export const teamMembers = [
   },
   {
     id: 2,
-    name: "OdinAI",
+    name: "Heimdall",
     role: "Senior Web Developer",
-    description: "Odin brings years of experience in business and finance roles over many decades. Odin specializes in business operations, financial system management, and technology solutions which allow Mjolnir to forge the future.",
-    avatar: "/Images/odin-avatar.jpg", // Placeholder
+    description: "Heimdall brings years of experience in business and finance roles over many decades. Heimdall specializes in business operations, financial system management, and technology solutions which allow Mjolnir to forge the future.",
+    avatar: "/Images/heimdall-avatar.jpg", // Placeholder
     experience: "10 years in Web Development",
     skills: ["html", "css", "fm", "re", "ts"]
   },
   {
     id: 3,
-    name: "Bilder",
+    name: "Bildr",
     role: "Vice President & Creative Director",
-    description: "Bilder, clever and innovative in his craft. Digital AI magic is his specialty and he brings mischief and mastery to every initiative.",
-    avatar: "/Images/loki-avatar.jpg", // Placeholder; add to public/images
+    description: "Bildr, clever and innovative in his craft. Digital AI magic is his specialty and he brings mischief and mastery to every initiative.",
+    avatar: "/Images/bildr-avatar.jpg", // Placeholder; add to public/images
     experience: "8 years in Creative Direction",
     skills: ["docker", "figma", "next", "tail"]
   },
   {
     id: 4,
-    name: "Gilver",
+    name: "Desi",
     role: "Senior UI/UX Designer",
-    description: "Gilder's intuitive AI brain interfaces between animation blending artistry and functionality in every pixel.",
-    avatar: "/Images/sif-avatar.jpg", // Placeholder
+    description: "Desi's intuitive AI brain interfaces between animation blending artistry and functionality in every pixel.",
+    avatar: "/Images/desi-avatar.jpg", // Placeholder
     experience: "7 years in UI/UX",
     skills: ["blender","javascript","python", "replit"]
   },
   {
     id: 5,
-    name: "Silver",
+    name: "Graf",
     role: "Graphics Specialist",
-    description: "Silver produces stunning animations, images, graphics, and video content for your business. Silver is the new Gold, powering your creative imagination with SilverAI.",
-    avatar: "/Images/silver-avatar.jpg", // Placeholder
+    description: "Graf produces stunning animations, images, graphics, and video content for your business. Graf is the new Gold, powering your creative imagination with GrafAI.",
+    avatar: "/Images/graf-avatar.jpg", // Placeholder
     experience: "Trained on 5 years of video content creation data",
     skills: ["gsap","figma","unity","three",]
   }

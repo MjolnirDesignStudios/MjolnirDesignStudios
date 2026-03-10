@@ -1,6 +1,7 @@
 // app/layout.tsx — FINAL: PERFECT SCROLL OFFSET + SMOOTH SCROLLING
 import type { Metadata } from "next";
 import { Inter, Ubuntu } from "next/font/google";
+import Script from "next/script";
 import ClientLayout from "./clientlayout";
 import "./globals.css";
 
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s • Mjolnir Design Studios",
   },
   description:
-    "Premium UI/UX and web designs. Full-stack development from the Lightning Capital of the World — Tampa, Florida. We build high-performance animations for unforgettable digital experiences that strike with power.",
+    "Premium UI/UX and web designs. Full-stack development from the Lightning Capital of the World — Tampa, Florida. We build high-performance digital experiences that strike with the power of Mjolnir!.",
   keywords: [
     "web design tampa",
     "web development tampa",
@@ -38,13 +39,11 @@ export const metadata: Metadata = {
     "thunderous ui/ux",
     "electric web design",
     "3D web experiences",
-    "GSAP animation agency",
-    "framer motion development",
     "premium web components",
     "web3 design studio",
     "tampa web designer",
     "florida digital agency",
-    "lightning capital web design",
+    "lightning capital",
   ],
   authors: [{ name: "Mjolnir Design Studios", url: "https://www.mjolnirdesignstudios.com" }],
   creator: "Mjolnir Design Studios",
@@ -85,7 +84,7 @@ export const metadata: Metadata = {
     ],
   },
   verification: {
-    google: "your-google-site-verification",
+    google: "your-google-site-verification", // TODO: Replace with actual Google Search Console verification code
   },
 };
 
@@ -94,9 +93,80 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Static export compatible structured data
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Mjolnir Design Studios",
+    "url": "https://www.mjolnirdesignstudios.com",
+    "logo": "https://www.mjolnirdesignstudios.com/Assets/mjolnir_logo_transparent.png",
+    "description": "Premium UI/UX and web designs. Full-stack development from the Lightning Capital of the World — Tampa, Florida.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tampa",
+      "addressRegion": "FL",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://twitter.com/MjolnirDesignsX"
+    ],
+    "serviceType": ["Web Design", "UI/UX Design", "Web Development", "Digital Agency"],
+    "areaServed": {
+      "@type": "Place",
+      "name": "Tampa, Florida"
+    },
+    "knowsAbout": ["Next.js", "React", "TypeScript", "UI/UX Design", "Web Development", "3D Web Experiences"]
+  };
+
   return (
     <html lang="en" className={`${inter.variable} ${ubuntu.variable}`} suppressHydrationWarning>
-      <head />
+      <head>
+        {/* Static export compatible SEO */}
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.mjolnirdesignstudios.com" />
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="https://www.mjolnirdesignstudios.com" />
+        <meta property="og:site_name" content="Mjolnir Design Studios" />
+        <meta property="og:title" content="Mjolnir Design Studios • Thunderous Digital Experiences" />
+        <meta property="og:description" content="Thunderous UI/UX from Tampa, Florida — the Lightning Capital of the World" />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@MjolnirDesignsX" />
+        <meta name="twitter:creator" content="@MjolnirDesignsX" />
+        <meta name="twitter:title" content="Mjolnir Design Studios Tampa Bay's Thunderous Digital Agency" />
+        <meta name="twitter:description" content="We don't just build websites. We bring the thunder." />
+        <meta name="twitter:image" content="/og-image.jpg" />
+
+        {/* Google Analytics - Static Export Compatible */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'GA_MEASUREMENT_ID');
+          `}
+        </Script>
+
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
+        />
+      </head>
       <body className="font-body antialiased bg-black text-white min-h-screen">
         {/* THIS LINE FIXES EVERYTHING */}
         <div className="pt-20 lg:pt-26" /> {/* Invisible spacer = navbar height */}

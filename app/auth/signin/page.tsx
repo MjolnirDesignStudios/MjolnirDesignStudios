@@ -1,28 +1,86 @@
 "use client";
 
-import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
-import { Web3Button } from "@web3auth/ui";
+import { supabaseClient } from "@/lib/supabase/client";
 
 export default function SignIn() {
-  const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  if (session) return <p>Signed in as {session.user?.email}</p>;
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      // Redirect will be handled by the auth callback
+    }
+
+    setLoading(false);
+  };
+
+  const handleOAuthSignIn = async (provider: 'github' | 'google') => {
+    setLoading(true);
+    const { error } = await supabaseClient.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+
+    if (error) {
+      alert(error.message);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <button onClick={() => signIn("google")} className="mb-4 p-4 border rounded">
+      <form onSubmit={handleSignIn} className="w-full max-w-sm">
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mb-4 p-4 border rounded w-full"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="mb-4 p-4 border rounded w-full"
+          required
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          className="mb-4 p-4 border rounded w-full bg-blue-500 text-white"
+        >
+          {loading ? "Signing in..." : "Sign in"}
+        </button>
+      </form>
+
+      <button
+        onClick={() => handleOAuthSignIn("github")}
+        className="mb-4 p-4 border rounded"
+      >
+        Sign in with GitHub
+      </button>
+      <button
+        onClick={() => handleOAuthSignIn("google")}
+        className="mb-4 p-4 border rounded"
+      >
         Sign in with Google
       </button>
-      <Web3Button
-        clientId={process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID!}
-        onLogin={(user) => {
-          // Handle Web3 login
-          signIn("credentials", { address: user.address, signature: user.signature });
-        }}
-        theme="light"
-      />
     </div>
   );
 }

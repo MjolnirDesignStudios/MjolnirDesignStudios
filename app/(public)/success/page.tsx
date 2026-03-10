@@ -12,10 +12,10 @@ export default function Success() {
           You have lifted the mighty Mjolnir! The power of thunder is yours to command!
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
-          <Link href="/dashboard" className="px-12 py-6 bg-gradient-to-r from-emerald-500 to-cyan-500 text-black font-bold text-xl rounded-2xl hover:scale-105 transition">
+          <Link href="/blocks/dashboard" className="px-12 py-6 bg-gradient-to-r from-emerald-500 to-cyan-500 text-black font-bold text-xl rounded-2xl hover:scale-105 transition">
             Build Your Empire
           </Link>
-          <Link href="/components" className="px-12 py-6 border-2 border-gold text-gold font-bold text-xl rounded-2xl hover:bg-gold/10 transition">
+          <Link href="/blocks/registry" className="px-12 py-6 border-2 border-gold text-gold font-bold text-xl rounded-2xl hover:bg-gold/10 transition">
             Browse Components
           </Link>
         </div>

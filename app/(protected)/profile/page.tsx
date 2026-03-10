@@ -26,7 +26,7 @@ export default function Profile() {
       <button onClick={saveProfile} className="bg-blue-500 text-white p-2 rounded">
         Save
       </button>
-      <p>Wallet: {session.user?.walletAddress}</p>
+      <p>Email: {session.user?.email}</p>
     </div>
   );
 }

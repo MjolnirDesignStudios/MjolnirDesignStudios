@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import { ThemeProvider } from "./provider";
 
 export default function ClientLayout({
@@ -7,14 +6,8 @@ export default function ClientLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return null; // Defer rendering until client mount
-
+  // No isMounted guard — next-themes handles its own SSR hydration.
+  // The old `if (!isMounted) return null` pattern caused a full-page FOUC.
   return (
     <ThemeProvider
       attribute="class"

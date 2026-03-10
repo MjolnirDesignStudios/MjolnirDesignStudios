@@ -13,6 +13,7 @@ import { ColorfulText } from "@/components/ui/TextEffects/ColorfulText";
 import { GlowingEffect } from "./Animations/GlowingEffect";
 import Lottie from "lottie-react";
 import Singularity from "./Animations/Singularity";
+import { getAssetUrls } from '@/lib/cdn-config';
 
 
 export const BentoGrid = ({
@@ -22,6 +23,7 @@ export const BentoGrid = ({
   className?: string;
   children?: React.ReactNode;
 }) => {
+  const assets = getAssetUrls();
   return (
     <>
       {/* MOBILE — TALLER, WIDER, BEAUTIFUL CARDS */}
@@ -72,6 +74,7 @@ export const BentoGridItem = ({
   contentType, // ADD THIS
 }: BentoGridItemProps) => {
   const [copied, setCopied] = useState(false);
+  const assets = getAssetUrls();
 
   const handleCopy = () => {
     navigator.clipboard.writeText("contact@mjolnirdesignstudios.com");
@@ -174,7 +177,7 @@ export const BentoGridItem = ({
             {/* MJÖLNIR — FULL WIDTH, NO CROPPING, PUSHED DOWN */}
             <div className="absolute inset-0 flex items-end justify-center">
               <Image
-                src="./Images/Mjolnir.jpeg"
+                src={assets.mjolnirBackground}
                 alt="Mjolnir"
                 width={1920}
                 height={1080}

@@ -1,4 +1,6 @@
 /* app/globals.css — MJÖLNIR DESIGN STUDIOS 2026 — THUNDER REBORN */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Ubuntu+Mono:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,6 +34,19 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    /* Dashboard variables - Light mode */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-elevated: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --border-color: #e2e8f0;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --mjolnir-gold: #d4af37;
+    --mjolnir-gold-hover: #c5a028;
+    --status-neutral: #64748b;
   }
 
   .dark {
@@ -61,6 +76,19 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    /* Dashboard variables - Dark mode */
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-elevated: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #64748b;
+    --border-color: #334155;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --mjolnir-gold: #d4af37;
+    --mjolnir-gold-hover: #c5a028;
+    --status-neutral: #64748b;
   }
 
   *, *::before, *::after {
@@ -77,6 +105,11 @@
     background-image: 
       radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.03) 0%, transparent 20%),
       radial-gradient(circle at 90% 80%, rgba(255, 204, 17, 0.03) 0%, transparent 20%);
+  }
+
+  /* Hide scrollbar for WebKit browsers */
+  ::-webkit-scrollbar {
+    display: none;
   }
 
   :focus-visible {
@@ -115,7 +148,7 @@
 .electric-border .eb-layers > * { position: absolute; inset: 0; border-radius: inherit; opacity: 0; transition: opacity 0.6s ease; }
 @layer components { .electric-border:hover .eb-layers > * { opacity: 1 !important; } }
 .electric-border .eb-stroke { border: var(--eb-border-width) solid var(--electric-border-color); }
-.electric-border .eb-glow-1 { border: var(--eb-border-width) solid color-mix(in oklab, var(--electric-border-color) 60%, transparent); filter: blur(8px); }
+.electric-border .eb-glow-1 { border: var(--eb-border-width) solid rgba(147, 51, 234, 0.6); filter: blur(8px); }
 .electric-border .eb-glow-2 { border: var(--eb-border-width) solid var(--electric-border-color); filter: blur(20px); }
 .electric-border .eb-background-glow { background: radial-gradient(circle at 30% 30%, var(--electric-border-color), transparent 70%); filter: blur(50px); opacity: 0.7; }
 
@@ -163,4 +196,191 @@
 
 .animate-shimmer {
   animation: animate-shimmer 10s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ==================== MJOLNIR DASHBOARD STYLES ==================== */
+
+
+/* ==================== REUSABLE UTILITY CLASSES ==================== */
+
+.mjolnir-card {
+  background: var(--bg-elevated);
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mjolnir-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px var(--shadow);
+  border-color: var(--mjolnir-gold);
+}
+
+.mjolnir-gold-accent {
+  color: var(--mjolnir-gold);
+}
+
+.mjolnir-gold-bg {
+  background-color: var(--mjolnir-gold);
+}
+
+.mjolnir-blue-bg {
+  background-color: var(--mjolnir-blue);
+}
+
+.mjolnir-button {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px 24px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.mjolnir-button:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--mjolnir-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.mjolnir-button-primary {
+  background: var(--mjolnir-gold);
+  border-color: var(--mjolnir-gold);
+  color: white;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+.mjolnir-button-primary:hover {
+  background: var(--mjolnir-gold-hover);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+}
+
+/* ==================== SIDEBAR STYLES ==================== */
+
+.sidebar-gold-hover:hover {
+  background: rgba(212, 175, 55, 0.1) !important;
+  border-left: 4px solid var(--mjolnir-gold) !important;
+}
+
+.sidebar-gold-hover.active {
+  background: rgba(212, 175, 55, 0.2) !important;
+  border-left: 4px solid var(--mjolnir-gold) !important;
+  color: var(--mjolnir-gold) !important;
+}
+
+/* ==================== STAT CARD ICON BACKGROUNDS ==================== */
+
+.icon-blue {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: var(--mjolnir-blue);
+}
+
+.icon-gold {
+  background-color: rgba(212, 175, 55, 0.15);
+  color: var(--mjolnir-gold);
+}
+
+.icon-green {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.icon-yellow {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.icon-red {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+/* Dark mode adjustments */
+.dark .icon-blue {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+.dark .icon-gold {
+  background-color: rgba(212, 175, 55, 0.2);
+}
+
+.dark .icon-green {
+  background-color: rgba(16, 185, 129, 0.2);
+}
+
+.dark .icon-yellow {
+  background-color: rgba(245, 158, 11, 0.2);
+}
+
+.dark .icon-red {
+  background-color: rgba(239, 68, 68, 0.2);
+}
+
+/* ==================== ANIMATIONS ==================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease backwards;
+}
+
+/* ==================== SCROLLBAR STYLING ==================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* ==================== RESPONSIVE UTILITIES ==================== */
+
+@media (max-width: 768px) {
+  .mjolnir-card {
+    padding: 20px;
+  }
 }

@@ -11,13 +11,15 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScroll } from "framer-motion";
 import * as THREE from "three";
+import { getAssetUrls } from '@/lib/cdn-config';
 
 gsap.registerPlugin(ScrollTrigger);
 
 // 3D MJÖLNIR MODEL (your Meshy hammer)
 function Mjolnir({ progress }: { progress: number }) {
+  const assets = getAssetUrls();
   const mesh = useRef<THREE.Mesh>(null);
-  const { scene } = useLoader(GLTFLoader, "/models/mjolnir.glb");
+  const { scene } = useLoader(GLTFLoader, assets.mjolnirModel);
 
   useFrame(() => {
     if (!mesh.current) return;

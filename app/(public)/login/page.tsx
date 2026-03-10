@@ -10,21 +10,43 @@ import { Zap } from "lucide-react";
 
 export default function LoginPage() {
   const signInWithGitHub = async () => {
-    await supabaseClient.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: `${window.location.origin}/blocks`,
-      },
-    });
+    try {
+      console.log("Starting GitHub sign-in...");
+      const { data, error } = await supabaseClient.auth.signInWithOAuth({
+        provider: "github",
+        options: {
+          redirectTo: `${window.location.origin}/blocks`,
+        },
+      });
+      console.log("GitHub OAuth response:", { data, error });
+      if (error) {
+        console.error("GitHub login error:", error);
+        alert("GitHub login failed: " + error.message);
+      } else {
+        console.log("GitHub OAuth initiated, redirecting...");
+      }
+    } catch (err) {
+      console.error("Unexpected GitHub login error:", err);
+      alert("Something went wrong with GitHub login.");
+    }
   };
 
   const signInWithTwitter = async () => {
-    await supabaseClient.auth.signInWithOAuth({
-      provider: "twitter",
-      options: {
-        redirectTo: `${window.location.origin}/blocks`,
-      },
-    });
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithOAuth({
+        provider: "twitter",
+        options: {
+          redirectTo: `${window.location.origin}/blocks`,
+        },
+      });
+      if (error) {
+        console.error("Twitter login error:", error);
+        alert("Twitter login failed: " + error.message);
+      }
+    } catch (err) {
+      console.error("Unexpected Twitter login error:", err);
+      alert("Something went wrong with Twitter login.");
+    }
   };
 
   const signInWithWeb3 = async () => {

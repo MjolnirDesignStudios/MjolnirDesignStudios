@@ -5,6 +5,16 @@ const nextConfig = {
     forceSwcTransforms: false,
   },
 
+  typescript: {
+    // !! WARN: Temporarily disabled for debugging
+    ignoreBuildErrors: false,
+  },
+
+  eslint: {
+    // Warning: This allows production builds with ESLint errors.
+    ignoreDuringBuilds: true,
+  },
+
   webpack: (config: any, { isServer }: { isServer: boolean }) => {
     if (!isServer) {
       config.module.rules.push({
@@ -15,13 +25,25 @@ const nextConfig = {
     return config;
   },
 
-  output: 'export',
+  // output: 'export' REMOVED — static export kills ALL API routes (Stripe, HubSpot, Calendly)
+  // Deploy to Vercel (Node.js) instead of Hostinger static hosting
+
   images: {
     unoptimized: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
+    domains: [
+      'res.cloudinary.com', // Cloudinary CDN
+      'cdn.jsdelivr.net',   // Alternative CDN
+      'raw.githubusercontent.com', // GitHub raw files
+    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

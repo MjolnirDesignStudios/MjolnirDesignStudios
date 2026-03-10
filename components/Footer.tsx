@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { socialMedia } from "@/data";
+import { getAssetUrls } from '@/lib/cdn-config';
 
 const footerLinks = {
   Company: [
@@ -29,7 +30,7 @@ const footerLinks = {
     { name: "Hammer Tech", href: "/hammer-tech" },
     { name: "Mjolnir Forge", href: "/forge" },
     { name: "MjolnirAI Pro", href: "/pricing" },
-    { name: "MjolnirUI Pro", href: "/pricing" },
+    { name: "MjolnirUI Pro", href: "https://mjolnirui.com" },
   ],
   Support: [
     { name: "Blog/Vlog", href: "/blog" },

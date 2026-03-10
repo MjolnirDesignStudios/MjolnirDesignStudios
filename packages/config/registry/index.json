@@ -1,0 +1,292 @@
+{
+  "components": {
+    "background-studio": {
+      "name": "Background Studio",
+      "description": "Premium WebGL shader background effects with Asgardian collection",
+      "category": "background",
+      "tier": "premium",
+      "dependencies": [],
+      "files": [
+        "components/background-studio.tsx",
+        "shaders/shader-manager.ts",
+        "shaders/shader-loader.ts"
+      ],
+      "props": {
+        "defaultShader": {
+          "type": "string",
+          "default": "nebula",
+          "description": "Default shader to load"
+        },
+        "showControls": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show shader controls overlay"
+        },
+        "premiumMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable premium features"
+        }
+      },
+      "shaders": {
+        "presets": [
+          {
+            "name": "Nebula",
+            "file": "shaders/presets/nebula.ts",
+            "description": "Cosmic nebula with swirling colors"
+          },
+          {
+            "name": "Cyberpunk",
+            "file": "shaders/presets/cyberpunk.ts",
+            "description": "Neon cyberpunk cityscape with rain"
+          }
+        ],
+        "user": [
+          {
+            "name": "Atmosphere",
+            "file": "shaders/user/atmosphere.ts",
+            "description": "Floating particle atmosphere with golden glow",
+            "category": "atmospheric",
+            "tier": "base"
+          },
+          {
+            "name": "Aura Waves",
+            "file": "shaders/user/aura-waves.ts",
+            "description": "Northern lights aurora effect with flowing waves",
+            "category": "atmospheric",
+            "tier": "base"
+          },
+          {
+            "name": "Black Hole",
+            "file": "shaders/user/blackhole.ts",
+            "description": "Gravitational singularity with accretion disk",
+            "category": "cosmic",
+            "tier": "pro"
+          },
+          {
+            "name": "Hyperspeed",
+            "file": "shaders/user/hyperspeed.ts",
+            "description": "Warp speed tunnel through star fields",
+            "category": "space",
+            "tier": "pro"
+          },
+          {
+            "name": "Laser Flow",
+            "file": "shaders/user/laserflow.ts",
+            "description": "Flowing laser beams with energy particles",
+            "category": "energy",
+            "tier": "pro"
+          },
+          {
+            "name": "Light Pillar",
+            "file": "shaders/user/lightpillar.ts",
+            "description": "Vertical light pillars with atmospheric scattering",
+            "category": "atmospheric",
+            "tier": "base"
+          },
+          {
+            "name": "Lightning",
+            "file": "shaders/user/lightningeffect.ts",
+            "description": "Procedural lightning storm with fractal noise and electric blue hues",
+            "category": "energy",
+            "tier": "pro"
+          },
+          {
+            "name": "Matrix Rain",
+            "file": "shaders/user/matrixrain.ts",
+            "description": "Digital matrix rain with cascading characters",
+            "category": "cyberpunk",
+            "tier": "pro"
+          },
+          {
+            "name": "Ripple Grid",
+            "file": "shaders/user/ripplegrid.ts",
+            "description": "Interactive ripple effects on geometric grid",
+            "category": "geometric",
+            "tier": "base"
+          },
+          {
+            "name": "Silky Lines",
+            "file": "shaders/user/silkylines.ts",
+            "description": "Flowing silky lines with mouse interaction and organic wave patterns",
+            "category": "organic",
+            "tier": "pro"
+          },
+          {
+            "name": "Singularity",
+            "file": "shaders/user/singularity.ts",
+            "description": "Cosmic singularity with swirling waves and color-shifting energy fields",
+            "category": "cosmic",
+            "tier": "base"
+          },
+          {
+            "name": "Star Field",
+            "file": "shaders/user/starfield.ts",
+            "description": "Volumetric star field with mouse-controlled rotation and golden hues",
+            "category": "space",
+            "tier": "pro"
+          },
+          {
+            "name": "Swirling Gas",
+            "file": "shaders/user/swirlinggas.ts",
+            "description": "Turbulent gas clouds with volumetric lighting",
+            "category": "atmospheric",
+            "tier": "base"
+          },
+          {
+            "name": "Accretion",
+            "file": "shaders/user/accretion.ts",
+            "description": "Volumetric accretion disk around cosmic singularity",
+            "category": "cosmic",
+            "tier": "pro"
+          },
+          {
+            "name": "Atomic",
+            "file": "shaders/user/atomic.ts",
+            "description": "Nuclear reactor core with enhanced premium effects",
+            "category": "energy",
+            "tier": "pro"
+          },
+          {
+            "name": "BiFrost Bridge",
+            "file": "shaders/user/bifrost.ts",
+            "description": "The Rainbow Bridge of Asgard with energy beams",
+            "category": "mythical",
+            "tier": "base"
+          },
+          {
+            "name": "Color Halo",
+            "file": "shaders/user/colorhalo.ts",
+            "description": "Colorful warp effect with swirling halos",
+            "category": "abstract",
+            "tier": "pro"
+          },
+          {
+            "name": "Dark Veil",
+            "file": "shaders/user/darkveil.ts",
+            "description": "CPPN-based dark veil with organic shadows",
+            "category": "dark",
+            "tier": "base"
+          }
+        ]
+      }
+    },
+    "thunder-button": {
+      "name": "Thunder Button",
+      "description": "Animated button with lightning effects",
+      "category": "button",
+      "tier": "premium",
+      "dependencies": ["gsap"],
+      "files": ["components/thunder-button.tsx"],
+      "props": {
+        "children": {
+          "type": "ReactNode",
+          "description": "Button content"
+        },
+        "variant": {
+          "type": "string",
+          "default": "default",
+          "options": ["default", "outline", "ghost"]
+        }
+      }
+    },
+    "lightning-card": {
+      "name": "Lightning Card",
+      "description": "Card component with electric border effects",
+      "category": "card",
+      "tier": "premium",
+      "dependencies": ["framer-motion"],
+      "files": ["components/lightning-card.tsx"],
+      "props": {
+        "children": {
+          "type": "ReactNode",
+          "description": "Card content"
+        },
+        "glowColor": {
+          "type": "string",
+          "default": "#00ffff",
+          "description": "Glow color"
+        }
+      }
+    },
+    "odin-ai": {
+      "name": "Odin AI",
+      "description": "Business consultant AI chatbot",
+      "category": "ai",
+      "tier": "elite",
+      "dependencies": ["@supabase/supabase-js"],
+      "files": ["components/odin-ai.tsx"],
+      "props": {
+        "apiEndpoint": {
+          "type": "string",
+          "description": "API endpoint for AI responses"
+        },
+        "theme": {
+          "type": "string",
+          "default": "dark",
+          "options": ["light", "dark", "auto"]
+        }
+      }
+    }
+  },
+  "categories": {
+    "ai": {
+      "name": "AI Components",
+      "description": "Artificial intelligence powered components",
+      "icon": "🤖"
+    },
+    "background": {
+      "name": "Background Effects",
+      "description": "Shader and particle background effects",
+      "icon": "🌀"
+    },
+    "button": {
+      "name": "Buttons",
+      "description": "Interactive button components",
+      "icon": "🔘"
+    },
+    "card": {
+      "name": "Cards",
+      "description": "Content container components",
+      "icon": "🃏"
+    },
+    "carousel": {
+      "name": "Carousel Components",
+      "description": "Interactive carousel components",
+      "icon": "🎠"
+    },
+    "dashboard": {
+      "name": "Dashboard Components",
+      "description": "Interactive dashboard components",
+      "icon": "📊"
+    }
+  },
+  "tiers": {
+    "base": {
+      "name": "Base",
+      "price": 10,
+      "features": ["Basic components", "Community support"]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": 50,
+      "features": ["Advanced components", "Premium support", "Custom styling"]
+    },
+    "premium": {
+      "name": "Premium",
+      "price": 500,
+      "features": ["All components", "Source code", "Priority support", "Custom development"]
+    },
+    "elite": {
+      "name": "Elite",
+      "price": 5000,
+      "features": ["Everything", "White-label", "Dedicated support", "Odin AI access"]
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-03-09",
+    "totalComponents": 4,
+    "totalShaders": 4
+  }
+}

@@ -8,10 +8,8 @@ import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Package, Zap, Terminal } from "lucide-react";
 import Link from "next/link";
-import { useSidebar } from "@/components/layout/SidebarContext";
 
 export default function GetStarted() {
-  const { isOpen } = useSidebar();
 
   return (
     <div className="flex flex-col min-h-screen bg-neutral-950 text-white">
@@ -20,11 +18,7 @@ export default function GetStarted() {
       <div className="flex flex-1 pt-24">
         <UserSidebar />
 
-        <motion.main
-          className="flex-1 flex flex-col min-w-0 overflow-hidden"
-          animate={{ paddingLeft: isOpen ? "18rem" : "6rem" }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-        >
+        <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
           <div className="flex-1 overflow-y-auto bg-gradient-to-b from-neutral-950 via-purple-950/5 to-neutral-950">
             <div className="p-10 lg:p-20">
               <motion.div
@@ -139,7 +133,7 @@ export default function GetStarted() {
 
             <Footer />
           </div>
-        </motion.main>
+        </main>
       </div>
     </div>
   );

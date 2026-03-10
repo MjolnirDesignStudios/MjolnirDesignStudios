@@ -9,6 +9,7 @@ import gsap from "gsap";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { Mesh } from "three";
+import { getAssetUrls } from '@/lib/cdn-config';
 
 const SYSTEM_PROMPT = `
 You are MjolnirUI Agent — a thunderous AI builder optimized for business development, digital design, engineering, and web projects. Your core mission is to help users forge powerful digital experiences using MjolnirUI components.
@@ -109,7 +110,8 @@ export default function AgenticAI({ className }: AgenticAIProps) {
 
 // 3D MJÖLNIR COMPONENT (Meshy model)
 function MjolnirModel() {
-  const mjolnir = useGLTF("/models/mjolnir.glb");
+  const assets = getAssetUrls();
+  const mjolnir = useGLTF(assets.mjolnirModel);
   const ref = useRef<Mesh>(null);
 
   useFrame(() => {

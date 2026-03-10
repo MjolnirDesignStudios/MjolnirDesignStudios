@@ -5,9 +5,10 @@ import { FloatingNav } from "@/components/ui/Navigation/FloatingNav";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Blocks from "@/components/Blocks";
+import Tech from "@/components/Tech";
 import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
-import Forge from "@/components/Forge";
+import WorkshopSignup from "@/components/WorkshopSignup";
 
 
 export default function Home() {
@@ -38,16 +39,20 @@ export default function Home() {
         <Blocks />
       </div>
 
-      {/* Forge — Always Visible — Now Responsive */}
+      {/* Workshop Signup — Always Visible — Now Responsive */}
       <div className="w-full">
-        <Forge />
+        <WorkshopSignup />
       </div>
 
       {/* Pricing — Always Visible — Now Responsive */}
       <div className="w-full">
         <Pricing />
       </div>
-    
+
+      {/* Tech — Always Visible */}
+      <div className="w-full">
+        <Tech />
+      </div>
 
       {/* Footer — Always Visible */}
       <div className="w-full">

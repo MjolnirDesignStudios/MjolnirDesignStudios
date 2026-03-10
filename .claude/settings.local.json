@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /e/2025/mjolnir/app/\\\\\\(public\\\\\\)/www/)",
+      "Bash(git -C /e/2025/mjolnir log --oneline --all -- .env.production)",
+      "Bash(npm install resend)",
+      "Bash(npm run build)",
+      "Bash(npx next build)",
+      "Bash(npm install @anthropic-ai/sdk)",
+      "Bash(node -e \"require\\(''@anthropic-ai/sdk''\\); console.log\\(''installed''\\)\")",
+      "Bash(npx tsc --noEmit)",
+      "Bash(ls E:/2025/mjolnir/app/\\\\\\(public\\\\\\)/success/)",
+      "Bash(tasklist)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3007/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3007/login)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3007/api/stripe/checkout)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3007/api/odin/chat)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(ls E:/2025/mjolnir/node_modules/.bin/tsc*)",
+      "Bash(E:/2025/mjolnir/node_modules/typescript/bin/tsc --noEmit --project E:/2025/mjolnir/tsconfig.json)"
+    ]
+  }
+}

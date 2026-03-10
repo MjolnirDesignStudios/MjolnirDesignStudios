@@ -1,23 +1,33 @@
 // app/components/Blocks.tsx — EnergyTunnel Background on Rocket Block
+'use client';
 import React from "react";
 import { Globe, Rocket, Zap, Hammer, Shield } from "lucide-react";
 import ShimmerButton from "@/components/ui/Buttons/ShimmerButton";
 import Link from "next/link";
 import Image from "next/image";
+import { getAssetUrls } from '@/lib/cdn-config';
+import { motion } from "framer-motion";
 
 export default function Blocks() {
+  const assets = getAssetUrls();
   return (
     <section id="blocks" 
       className="py-4 mb-16 relative min-h-screen flex items-center justify-center overflow-hidden bg-neutral-950">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-10">
+        <motion.div 
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h1 className="text-5xl lg:text-5xl font-black text-white mb-4">
             Asgardian Tech Forged in <span className="text-gold">Valhalla</span>
           </h1>
           <p className="mt-6 text-xl text-gray-400">
-            Wield Powerful Design Technology
+            Transform your business with our premium consulting and development services!
           </p>
-        </div>
+        </motion.div>
 
         {/* ACETERNITY BENTO GRID */}
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-4 lg:gap-4">
@@ -27,7 +37,7 @@ export default function Blocks() {
             <div className="relative h-full rounded-3xl border border-white/10 overflow-hidden isolate">
               {/* EnergyTunnel Background */}
               <Image
-                src="/Images/Backgrounds/EnergyTunnel.jpeg"
+                src={assets.energyTunnel}
                 alt="Energy Tunnel"
                 fill
                 priority
@@ -54,7 +64,7 @@ export default function Blocks() {
 
                   <Link href="/blocks" className="mt-10 inline-block">
                     <ShimmerButton
-                      title="View Blocks"
+                      title="Start Your Project"
                       icon={<Zap className="w-6 h-6" />}
                       position="right"
                       otherClasses="mx-auto"

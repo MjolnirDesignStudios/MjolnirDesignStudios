@@ -1,15 +1,19 @@
 // components/renderContent.tsx
 "use client";
 
-import { BifrostGradient } from "@/components/ui/Animations/BifrostGradient";
-import Galactic from "@/components/ui/Animations/Galactic";
+import { BifrostGradient } from "@/components/ui/Animations/BifrostGradients";
+// import Galactic from "@/components/ui/Animations/Galactic"; // File doesn't exist
 import LightningEffect from "@/components/ui/Animations/LightningEffect";
 import ShimmerButton from "@/components/ui/Buttons/ShimmerButton";
-import { Globe } from "@/components/ui/Animations/Globe";
+import Globe from "@/components/ui/Animations/Globe";
 import { GridItem } from "@/data";
 import { useState } from "react";
 
-export const renderContent = (item: GridItem) => {
+interface RenderContentProps {
+  item: GridItem;
+}
+
+export const RenderContent = ({ item }: RenderContentProps) => {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
     navigator.clipboard.writeText("contact@mjolnirdesignstudios.com");
@@ -21,7 +25,7 @@ export const renderContent = (item: GridItem) => {
     case "mjolnir":
       return null; // Image + text handled by BentoGridItem
     case "galactic":
-      return <Galactic speed={0.8} intensity={3} size={1.8} waveStrength={2.2} colorShift={1.7} className="absolute inset-0 -z-10" />;
+      return null; // Galactic shader — planned for v2
     case "tech-stack":
       return <div className="text-center">3D Tech Stack Coming Soon</div>;
     case "lightning":

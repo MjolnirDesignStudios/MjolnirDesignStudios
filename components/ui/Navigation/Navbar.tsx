@@ -64,23 +64,41 @@ export default function Navbar() {
         {/* PERFECTLY CENTERED NAV LINKS */}
         <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-12">
           {navItems.map((item) => {
-            // Smart routing: Forge goes to full page on mobile, anchor on desktop
-            const href = item.name === "Forge" && isMobile ? "/forge" : item.link;
+            // Use regular anchor tag for hash links, Link for page navigation
+            const isHashLink = item.link.startsWith('/#');
+            const href = isHashLink ? item.link : (item.name === "Forge" && isMobile ? "/forge" : item.link);
+            
+            const linkProps = {
+              className: "text-lg font-medium text-gray-300 hover:text-gold transition relative group",
+              children: (
+                <>
+                  {item.name}
+                  <motion.span
+                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold"
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.4 }}
+                  />
+                </>
+              )
+            };
 
-            return (
-              <Link
-                key={item.name}
-                href={href}
-                className="text-lg font-medium text-gray-300 hover:text-gold transition relative group"
-              >
-                {item.name}
-                <motion.span
-                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold"
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.4 }}
+            if (isHashLink) {
+              return (
+                <a
+                  key={item.name}
+                  {...linkProps}
+                  href={href}
                 />
-              </Link>
-            );
+              );
+            } else {
+              return (
+                <Link
+                  key={item.name}
+                  {...linkProps}
+                  href={href}
+                />
+              );
+            }
           })}
         </nav>
 
