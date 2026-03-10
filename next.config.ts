@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Force Webpack so .glsl works perfectly
+  webpack: true,
+  turbopack: {
+    root: __dirname,
+  },
   experimental: {
     forceSwcTransforms: false,
   },
@@ -8,11 +12,6 @@ const nextConfig = {
   typescript: {
     // !! WARN: Temporarily disabled for debugging
     ignoreBuildErrors: false,
-  },
-
-  eslint: {
-    // Warning: This allows production builds with ESLint errors.
-    ignoreDuringBuilds: true,
   },
 
   webpack: (config: any, { isServer }: { isServer: boolean }) => {

@@ -10,24 +10,27 @@ import { Search, Star, Zap, Crown } from "lucide-react";
 
 // MjolnirUI registry components — stubs until submodule is built
 // TODO: replace with real imports once mjolnirui-registry packages are complete
-const BackgroundStudio = () => (
-  <div className="w-full h-full bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-lg flex items-center justify-center">
-    <span className="text-xs text-gray-400">Background Studio</span>
+const BackgroundStudio = ({ isPremium, className }: { isPremium?: boolean; className?: string }) => (
+  <div className={`w-full h-full bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-lg flex items-center justify-center ${className || ''}`}>
+    <span className="text-xs text-gray-400">Background Studio {isPremium ? '(Premium)' : ''}</span>
   </div>
 );
-const ThunderButton = () => (
-  <div className="w-full h-full bg-gradient-to-br from-yellow-500/20 to-amber-500/20 rounded-lg flex items-center justify-center">
-    <span className="text-xs text-gray-400">Thunder Button</span>
+const ThunderButton = ({ isPremium, children, className }: { isPremium?: boolean; children?: React.ReactNode; className?: string }) => (
+  <div className={`w-full h-full bg-gradient-to-br from-yellow-500/20 to-amber-500/20 rounded-lg flex items-center justify-center ${className || ''}`}>
+    <span className="text-xs text-gray-400">{children || 'Thunder Button'} {isPremium ? '(Premium)' : ''}</span>
   </div>
 );
-const LightningCard = () => (
-  <div className="w-full h-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-lg flex items-center justify-center">
-    <span className="text-xs text-gray-400">Lightning Card</span>
+const LightningCard = ({ isPremium, title, children, className }: { isPremium?: boolean; title?: string; children?: React.ReactNode; className?: string }) => (
+  <div className={`w-full h-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-lg flex items-center justify-center ${className || ''}`}>
+    <div className="text-center">
+      <span className="text-xs text-gray-400 block">{title || 'Lightning Card'}</span>
+      <span className="text-xs text-gray-400 block">{children} {isPremium ? '(Premium)' : ''}</span>
+    </div>
   </div>
 );
-const OdinAI = () => (
-  <div className="w-full h-full bg-gradient-to-br from-gold/20 to-amber-500/20 rounded-lg flex items-center justify-center">
-    <span className="text-xs text-gray-400">OdinAI</span>
+const OdinAI = ({ isPremium, className }: { isPremium?: boolean; className?: string }) => (
+  <div className={`w-full h-full bg-gradient-to-br from-gold/20 to-amber-500/20 rounded-lg flex items-center justify-center ${className || ''}`}>
+    <span className="text-xs text-gray-400">OdinAI {isPremium ? '(Premium)' : ''}</span>
   </div>
 );
 
