@@ -2,9 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { z } from 'zod';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-08-27.basil',
-});
+// Lazy init — avoids build-time crash when env vars aren't present
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error('[stripe/checkout] STRIPE_SECRET_KEY is not set');
+  return new Stripe(key, { apiVersion: '2025-08-27.basil' });
+}
 
 // ── Server-side price ID map — NEVER trust price IDs from the client ──────────
 // All price IDs must live in environment variables; these are the fallbacks from
@@ -68,7 +71,7 @@ export async function POST(request: NextRequest) {
     : `${process.env.NEXT_PUBLIC_SITE_URL}/success`;
 
   try {
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{ price: priceId, quantity: 1 }],
       mode: isSubscription ? 'subscription' : 'payment',

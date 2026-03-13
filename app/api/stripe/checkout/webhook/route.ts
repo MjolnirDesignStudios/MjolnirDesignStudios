@@ -2,19 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-08-27.basil',
-});
-
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-if (!endpointSecret) {
-  console.error('[stripe/webhook] STRIPE_WEBHOOK_SECRET is not set — webhook verification will fail');
+// Lazy init — avoids build-time crash when env vars aren't present
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error('[stripe/webhook] STRIPE_SECRET_KEY is not set');
+  return new Stripe(key, { apiVersion: '2025-08-27.basil' });
 }
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
   const sig = request.headers.get('stripe-signature')!;
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
   let event: Stripe.Event;
 
@@ -24,7 +22,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
+    event = getStripe().webhooks.constructEvent(body, sig, endpointSecret);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error';
     console.error('[stripe/webhook] Signature verification failed:', message);
