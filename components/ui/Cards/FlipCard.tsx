@@ -22,7 +22,7 @@ export type FlipCardProps = {
 
 export function FlipCard({
   icon,
-  gradient,
+  gradient: _gradient, // kept in props API; visual handled via glowColor edge-glow
   glowColor,
   isFlipping,
   flipAxis,
@@ -30,6 +30,8 @@ export function FlipCard({
   transform,
   transitionEnabled,
 }: FlipCardProps) {
+  // Extract #RRGGBB from glowColor string like "#7C3AED30"
+  const baseColor = glowColor.slice(0, 7);
   const renderIcon = () => {
     if (icon.svgPath) {
       return (
@@ -96,8 +98,21 @@ export function FlipCard({
             alignItems: "center",
             justifyContent: "center",
             borderRadius: "12px",
-            background: gradient,
-            boxShadow: `inset 0 0 40px ${glowColor}`,
+            // Near-black base. Color lives only at the card edges.
+            // inset box-shadow with negative spread (-N) contracts the shadow
+            // boundary to the edge zone; blur then fades it inward.
+            // Because box-shadow respects border-radius the color frame
+            // matches the rounded-12px card shape exactly.
+            //   Layer 1 — crisp 1.5px border ring at the very edge
+            //   Layer 2 — tight vivid glow ~0–18px from edge (spread -3px)
+            //   Layer 3 — softer secondary halo ~0–30px from edge (spread -5px)
+            // Center stays #030303 — no light reaches past ~30px inward.
+            background: "#030303",
+            boxShadow: [
+              `inset 0 0 0 1.5px ${baseColor}cc`,
+              `inset 0 0 18px -3px  ${baseColor}dd`,
+              `inset 0 0 32px -5px  ${baseColor}88`,
+            ].join(", "),
           }}
         >
           {renderIcon()}

@@ -7,40 +7,49 @@
 // but the spec body text (and SSR safety requirements) place it here.
 // This is the intentional resolution of that contradiction.
 
-import {
-  SiTypescript,
-  SiThreedotjs,
-  SiGithub,
-  SiNodedotjs,
-  SiPostgresql,
-  SiCloudflare,
-} from "react-icons/si";
+import { SiThreedotjs } from "react-icons/si";
 import type { TechIcon } from "@/data/index";
 
 export const techStackIcons: TechIcon[] = [
+  // ── Core Web ────────────────────────────────────────────────────────────
   { name: "React",         svgPath: "/Icons/Technologies/react.svg" },
-  { name: "Next.js",       svgPath: "/next.svg" },
-  { name: "TypeScript",    reactIcon: SiTypescript },
-  { name: "Tailwind",      svgPath: "/Icons/Technologies/tail.svg" },
-  { name: "GSAP",          svgPath: "/Icons/Technologies/gsap.svg" },
-  { name: "Three.js",      reactIcon: SiThreedotjs },
-  { name: "Framer Motion", svgPath: "/Icons/Technologies/fm.svg" },
-  { name: "Supabase",      svgPath: "/Icons/Technologies/supabase.svg" },
-  { name: "Stripe",        svgPath: "/Icons/Payments/stripe-64.svg" },
-  { name: "Vercel",        svgPath: "/vercel.svg" },
-  { name: "Docker",        svgPath: "/Icons/Technologies/docker.svg" },
-  { name: "Figma",         svgPath: "/Icons/Technologies/figma.svg" },
-  { name: "GitHub",        reactIcon: SiGithub },
-  { name: "Python",        svgPath: "/Icons/Technologies/python.svg" },
+  { name: "Next.js",       svgPath: "/Icons/Technologies/nextjs.svg" },
+  { name: "TypeScript",    svgPath: "/Icons/Technologies/typescript.svg" },
   { name: "JavaScript",    svgPath: "/Icons/Technologies/javascript.svg" },
   { name: "HTML5",         svgPath: "/Icons/Technologies/html.svg" },
   { name: "CSS3",          svgPath: "/Icons/Technologies/css.svg" },
+  { name: "Tailwind",      svgPath: "/Icons/Technologies/tail.svg" },
+  // ── Animation / 3D ──────────────────────────────────────────────────────
+  { name: "GSAP",          svgPath: "/Icons/Technologies/gsap.svg" },
+  { name: "Three.js",      svgPath: "/Icons/Technologies/threejs.svg" },
+  { name: "Framer Motion", svgPath: "/Icons/Technologies/fm.svg" },
   { name: "Blender",       svgPath: "/Icons/Technologies/blend.svg" },
-  { name: "HubSpot",       svgPath: "/Icons/Technologies/hubspot.svg" },
-  { name: "Grok",          svgPath: "/Icons/Technologies/grok.svg" },
+  // ── Backend / Runtime ───────────────────────────────────────────────────
+  { name: "Node.js",       svgPath: "/Icons/Technologies/nodejs.svg" },
+  { name: "Python",        svgPath: "/Icons/Technologies/python.svg" },
+  { name: "C",             svgPath: "/Icons/Technologies/c.svg" },
+  // ── Data / Infra ────────────────────────────────────────────────────────
+  { name: "Supabase",      svgPath: "/Icons/Technologies/supabase.svg" },
+  { name: "PostgreSQL",    svgPath: "/Icons/Technologies/postgresql.svg" },
+  { name: "Docker",        svgPath: "/Icons/Technologies/docker.svg" },
+  { name: "Cloudflare",    svgPath: "/Icons/Technologies/cloudflare.svg" },
+  // ── Payments / Commerce ─────────────────────────────────────────────────
+  { name: "Coinbase",        svgPath: "/Icons/Payments/coinbase-64.svg" },
+  { name: "Stripe",        svgPath: "/Icons/Payments/stripe-64.svg" },
+  { name: "Uphold",        svgPath: "/Icons/Payments/uphold-64.svg" },
+  // ── Platform / Hosting ──────────────────────────────────────────────────
+  { name: "Vercel",        svgPath: "/vercel.svg" },
+  { name: "Hostinger",     svgPath: "/Icons/Technologies/host.svg" },
+  { name: "GitHub",        svgPath: "/Icons/Technologies/github.svg" },
   { name: "Replit",        svgPath: "/Icons/Technologies/replit.svg" },
-  { name: "Node.js",       reactIcon: SiNodedotjs },
-  { name: "Cloudflare",    reactIcon: SiCloudflare },
-  { name: "PostgreSQL",    reactIcon: SiPostgresql },
-  { name: "Anthropic",     initials: "AI" },
+  // ── AI / ML ─────────────────────────────────────────────────────────────
+  { name: "Claude",        svgPath: "/Icons/Technologies/claude.svg" },
+  { name: "Grok",          svgPath: "/Icons/Technologies/grok.svg" },
+  { name: "Ollama",        svgPath: "/Icons/Technologies/ollama.svg" },
+  // ── SaaS / Tools ────────────────────────────────────────────────────────
+  { name: "Figma",         svgPath: "/Icons/Technologies/figma.svg" },
+  { name: "HubSpot",       svgPath: "/Icons/Technologies/hubspot.svg" },
+  { name: "ElevenLabs",    svgPath: "/Icons/Technologies/elevenlabs.svg" },
+  { name: "Stream",        svgPath: "/Icons/Technologies/stream.svg" },
+  { name: "App",           svgPath: "/Icons/Technologies/app.svg" },
 ];

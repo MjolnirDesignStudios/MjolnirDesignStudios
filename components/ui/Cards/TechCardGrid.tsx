@@ -98,10 +98,10 @@ function buildInitialCards(count: number): CardState[] {
 }
 
 export function TechCardGrid() {
-  const [cardCount, setCardCount] = useState(typeof window !== "undefined" && window.innerWidth >= 1024 ? 30 : 12);
-  const [cards, setCards] = useState<CardState[]>(() =>
-    buildInitialCards(typeof window !== "undefined" && window.innerWidth >= 1024 ? 30 : 12)
-  );
+  // SSR-safe: always start with 12 cards (mobile default).
+  // The useEffect below immediately corrects to 30 on desktop after hydration.
+  const [cardCount, setCardCount] = useState(12);
+  const [cards, setCards] = useState<CardState[]>(() => buildInitialCards(12));
   const gridRef = useRef<HTMLDivElement>(null);
   const pausedRef = useRef(false);
 
