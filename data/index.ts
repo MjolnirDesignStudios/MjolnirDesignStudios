@@ -1,7 +1,7 @@
 // data/index.ts — FINAL & SAFE
 export const navItems = [
   { name: "About", link: "/#about" },
-  { name: "Services", link: "/#blocks" },
+  { name: "Build", link: "/#build" },
   { name: "Forge", link: "/#forge" },
   { name: "Pricing", link: "/#pricing" },
   { name: "Tech", link: "/#tech" },
@@ -189,4 +189,42 @@ export const teamMembers = [
     experience: "Trained on 5 years of video content creation data",
     skills: ["gsap","figma","unity","three",]
   }
+];
+
+// ────────────────────────────────────────────────────────────────
+// TECH FLIP GRID — types + gradient constants
+// No React or client-only imports in this file.
+// Using `import type { ComponentType }` rather than `import React` + `React.ComponentType`
+// because a bare namespace import of React here would be flagged as unused by the linter.
+// `ComponentType<...>` is identical to `React.ComponentType<...>` at the type level.
+// ────────────────────────────────────────────────────────────────
+import type { ComponentType } from "react";
+
+export type TechIcon = {
+  name: string;
+  svgPath?: string;
+  /** react-icons component — e.g. SiReact from react-icons/si */
+  reactIcon?: ComponentType<{ size?: number; color?: string; className?: string }>;
+  /** 2–3 character fallback badge text */
+  initials?: string;
+};
+
+/** Six Bifrost gradient CSS strings, randomly assigned per card flip. */
+export const BIFROST_GRADIENTS: string[] = [
+  "linear-gradient(135deg, #7C3AED, #4F46E5)", // Electric Purple
+  "linear-gradient(135deg, #0EA5E9, #2563EB)", // Electric Blue
+  "linear-gradient(135deg, #10B981, #16A34A)", // Electric Green
+  "linear-gradient(135deg, #EAB308, #D4AF37)", // Electric Gold
+  "linear-gradient(135deg, #F97316, #EA580C)", // Electric Orange
+  "linear-gradient(135deg, #EF4444, #DC2626)", // Electric Red
+];
+
+/** Inward glow color per gradient (start color at 19% opacity). */
+export const BIFROST_GLOWS: string[] = [
+  "#7C3AED30",
+  "#0EA5E930",
+  "#10B98130",
+  "#EAB30830",
+  "#F9731630",
+  "#EF444430",
 ];
