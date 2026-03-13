@@ -2,57 +2,19 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+// useAnimation removed — it was only used by the deleted RandomMotionIcon
 import { useRef } from "react";
 import { supabaseClient } from "@/lib/supabase/client";
 import {
-  Calendar,
-  Cloud,
   Zap,
   Globe,
-  Mail,
-  Video,
-  Database,
-  Server,
-  Code,
-  Smartphone,
-  Monitor,
-  Palette,
-  Layers,
-  Cpu,
-  HardDrive,
-  Wifi,
   Shield,
-  BarChart3,
   Users,
   TrendingUp,
   Award,
-  CreditCard
 } from "lucide-react";
-
-// Tech stack icons mapping
-const techIcons = {
-  Calendly: Calendar,
-  CloudFlare: Cloud,
-  GSAP: Zap,
-  Hostinger: Globe,
-  HubSpot: Mail,
-  Remotion: Video,
-  Resend: Mail,
-  Supabase: Database,
-  NextJS: Code,
-  React: Code,
-  TypeScript: Code,
-  Tailwind: Palette,
-  FramerMotion: Layers,
-  ThreeJS: Cpu,
-  NodeJS: Server,
-  PostgreSQL: Database,
-  Stripe: CreditCard,
-  Vercel: Globe,
-  GitHub: Code,
-  Figma: Palette
-};
+import { TechCardGrid } from "@/components/ui/Cards/TechCardGrid";
 
 // Counter component with animation
 function Counter({ target, label, suffix = "", prefix = "", colorClass }: {
@@ -126,134 +88,6 @@ function useSubscribers() {
   return count;
 }
 
-// Random motion path component
-function RandomMotionIcon({ Icon, delay = 0 }: { Icon: React.ComponentType<any>; delay?: number }) {
-  const controls = useAnimation();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (isInView) {
-      // Random path generation
-      const paths = [
-        { x: [0, 50, -30, 0], y: [0, -40, 60, 0] },
-        { x: [0, -60, 40, 0], y: [0, 50, -20, 0] },
-        { x: [0, 30, -50, 0], y: [0, -60, 40, 0] },
-        { x: [0, 70, -20, 0], y: [0, 30, -50, 0] }
-      ];
-      const randomPath = paths[Math.floor(Math.random() * paths.length)];
-
-      controls.start({
-        x: randomPath.x,
-        y: randomPath.y,
-        transition: {
-          duration: 4 + Math.random() * 2,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-          delay
-        }
-      });
-    }
-  }, [isInView, controls, delay]);
-
-  return (
-    <motion.div
-      ref={ref}
-      animate={controls}
-      className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-gold/20 to-yellow-600/20 rounded-xl border border-gold/30 backdrop-blur-sm"
-    >
-      <Icon className="w-8 h-8 text-gold" />
-    </motion.div>
-  );
-}
-
-// Marquee scroller with random reveals
-function TechMarquee() {
-  const [visibleIcons, setVisibleIcons] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const techNames = Object.keys(techIcons);
-      const randomIcon = techNames[Math.floor(Math.random() * techNames.length)];
-      setVisibleIcons(prev => new Set([...prev, randomIcon]));
-    }, 800);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="relative overflow-hidden py-12">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/5 to-transparent" />
-
-      {/* Scrolling container */}
-      <motion.div
-        className="flex space-x-8"
-        animate={{
-          x: [-100, -2000],
-          transition: {
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 20,
-              ease: "linear"
-            }
-          }
-        }}
-      >
-        {Object.entries(techIcons).map(([name, Icon], index) => (
-          <motion.div
-            key={name}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={visibleIcons.has(name) ? {
-              opacity: 1,
-              scale: 1,
-              transition: { duration: 0.5, type: "spring" }
-            } : {}}
-            className="flex flex-col items-center space-y-2 min-w-[120px]"
-          >
-            <RandomMotionIcon Icon={Icon} delay={index * 0.2} />
-            <span className="text-sm text-gray-400 font-medium">{name}</span>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Duplicate for seamless loop */}
-      <motion.div
-        className="flex space-x-8 absolute top-0 left-full"
-        animate={{
-          x: [-100, -2000],
-          transition: {
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 20,
-              ease: "linear"
-            }
-          }
-        }}
-      >
-        {Object.entries(techIcons).map(([name, Icon], index) => (
-          <motion.div
-            key={`${name}-duplicate`}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={visibleIcons.has(name) ? {
-              opacity: 1,
-              scale: 1,
-              transition: { duration: 0.5, type: "spring" }
-            } : {}}
-            className="flex flex-col items-center space-y-2 min-w-[120px]"
-          >
-            <RandomMotionIcon Icon={Icon} delay={index * 0.2} />
-            <span className="text-sm text-gray-400 font-medium">{name}</span>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  );
-}
-
 export default function Tech() {
   const subscriberCount = useSubscribers();
 
@@ -272,31 +106,35 @@ export default function Tech() {
             <span className="text-white">Asgardian </span><span className="text-gold">Tech</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Experience the thunderous power of our cutting-edge technology stack.
-            From lightning-fast animations to enterprise-grade integrations.
+            Experience the thunderous power of our modern tech stack.
           </p>
         </motion.div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-          <Counter target={80} suffix="+" label="Components Forged" colorClass="text-electric-400" />
-          <Counter target={1500} suffix="+" label="Site Visitors" colorClass="text-emerald-400" />
-          <Counter target={subscriberCount} suffix="+" label="Newsletter Subscribers" colorClass="text-gold" />
-          <Counter target={17} suffix="+" label="Users Served" colorClass="text-orange-400" />
+          <div className="rounded-2xl border border-electric-400/30 p-6 bg-black/20 backdrop-blur-sm shadow-[0_0_28px_rgba(0,240,255,0.12)]">
+            <Counter target={80} suffix="+" label="Components Forged" colorClass="text-electric-400" />
+          </div>
+          <div className="rounded-2xl border border-emerald-400/30 p-6 bg-black/20 backdrop-blur-sm shadow-[0_0_28px_rgba(52,211,153,0.12)]">
+            <Counter target={1500} suffix="+" label="Site Visitors" colorClass="text-emerald-400" />
+          </div>
+          <div className="rounded-2xl border border-yellow-400/30 p-6 bg-black/20 backdrop-blur-sm shadow-[0_0_28px_rgba(255,204,17,0.12)]">
+            <Counter target={subscriberCount} suffix="+" label="Newsletter Subscribers" colorClass="text-gold" />
+          </div>
+          <div className="rounded-2xl border border-orange-400/30 p-6 bg-black/20 backdrop-blur-sm shadow-[0_0_28px_rgba(251,146,60,0.12)]">
+            <Counter target={17} suffix="+" label="Users Served" colorClass="text-orange-400" />
+          </div>
         </div>
 
-        {/* Tech Marquee */}
+        {/* Tech Flip Grid */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
+          transition={{ duration: 1, delay: 0.3 }}
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h3 className="text-3xl font-bold text-white text-center mb-8">
-            Our Tech Arsenal
-          </h3>
-          <TechMarquee />
+          <TechCardGrid />
         </motion.div>
 
         {/* Feature Cards */}
