@@ -34,6 +34,27 @@ export const BackgroundStudio: React.FC<BackgroundStudioProps> = ({
     user: availableShaders.filter((s: string) => !['nebula', 'cyberpunk', 'fractal', 'aurora', 'matrix', 'cosmic'].includes(s))
   }), [availableShaders]);
 
+  const loadShader = useCallback(async (shaderName: string) => {
+    if (!shaderManagerRef.current) return;
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      await shaderManagerRef.current.loadShader(shaderName);
+      setCurrentShader(shaderName);
+      if (isPlaying) {
+        shaderManagerRef.current.startAnimation();
+      }
+      onShaderChange?.(shaderName);
+    } catch (err) {
+      console.error(`Failed to load shader ${shaderName}:`, err);
+      setError(`Failed to load shader: ${shaderName}`);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [isPlaying, onShaderChange]);
+
   // Initialize shader system
   useEffect(() => {
     const initShaders = async () => {
@@ -62,28 +83,7 @@ export const BackgroundStudio: React.FC<BackgroundStudioProps> = ({
         shaderManagerRef.current.dispose();
       }
     };
-  }, []);
-
-  const loadShader = useCallback(async (shaderName: string) => {
-    if (!shaderManagerRef.current) return;
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      await shaderManagerRef.current.loadShader(shaderName);
-      setCurrentShader(shaderName);
-      if (isPlaying) {
-        shaderManagerRef.current.startAnimation();
-      }
-      onShaderChange?.(shaderName);
-    } catch (err) {
-      console.error(`Failed to load shader ${shaderName}:`, err);
-      setError(`Failed to load shader: ${shaderName}`);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isPlaying, onShaderChange]);
+  }, [defaultShader, loadShader]);
 
   // Handle canvas resize with debouncing
   useEffect(() => {
@@ -264,7 +264,7 @@ export const BackgroundStudio: React.FC<BackgroundStudioProps> = ({
             <div className="text-4xl mb-4">⚡</div>
             <h2 className="text-xl font-bold mb-2">WebGL Not Supported</h2>
             <p className="text-white/70 text-sm mb-4">
-              Your browser doesn't support WebGL shaders. Try using Chrome, Firefox, or Edge for the full experience.
+              Your browser doesn&apos;t support WebGL shaders. Try using Chrome, Firefox, or Edge for the full experience.
             </p>
             <div className="text-xs text-white/50">
               Current shader: {getShaderDisplayName(currentShader)}
@@ -284,9 +284,9 @@ export const BackgroundStudio: React.FC<BackgroundStudioProps> = ({
 };
 
 // Utility function for debouncing
-function debounce(func: Function, wait: number) {
+function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number): (...args: Parameters<T>) => void {
   let timeout: NodeJS.Timeout;
-  return function executedFunction(...args: any[]) {
+  return (...args: Parameters<T>) => {
     const later = () => {
       clearTimeout(timeout);
       func(...args);

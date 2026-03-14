@@ -106,7 +106,7 @@ export default function Tech() {
             <span className="text-white">Asgardian </span><span className="text-gold">Tech</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Experience the thunderous power of our modern tech stack.
+            Systems designed with a modern technology stack.
           </p>
         </motion.div>
 
