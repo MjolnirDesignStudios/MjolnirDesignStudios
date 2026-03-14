@@ -104,7 +104,7 @@ export const gridItems: GridItem[] = [
   {
     id: 6,
     title: "Open the BiFrost!",
-    description: "to contact Mjolnir Design Studios",
+    description: "Contact Mjolnir Design Studios",
     className: "lg:col-span-2 md:col-span-3 md:row-span-1",
     titleClassName: "justify-center md:max-w-full max-w-60 text-center",
     direction: "left",

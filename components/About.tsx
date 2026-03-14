@@ -24,7 +24,8 @@ export default function About() {
           </p>
         </motion.div>
 
-        <BentoGrid>
+        {/* Mobile order: Electric(0), Hammer(3), OtherWorldly(1), AsgardianTech(2), Globe(4), Bifrost(5) */}
+        <BentoGrid mobileOrder={[0, 3, 1, 2, 4, 5]}>
           {gridItems.map((item) => (
             <BentoGridItem
               key={item.id}

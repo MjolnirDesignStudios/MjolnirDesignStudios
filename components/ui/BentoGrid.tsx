@@ -1,7 +1,7 @@
-// components/ui/BentoGrid.tsx — YOUR OLD FILE, UNTOUCHED
+// components/ui/BentoGrid.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import LightningEffect from "./Animations/LightningEffect";
 import Globe from "./Animations/Globe";
@@ -19,17 +19,24 @@ import { getAssetUrls } from '@/lib/cdn-config';
 export const BentoGrid = ({
   className,
   children,
+  mobileOrder,
 }: {
   className?: string;
   children?: React.ReactNode;
+  mobileOrder?: number[];
 }) => {
   const assets = getAssetUrls();
+  const childArray = React.Children.toArray(children);
+  const mobileChildren = mobileOrder
+    ? mobileOrder.map(i => childArray[i]).filter(Boolean)
+    : childArray;
+
   return (
     <>
-      {/* MOBILE — TALLER, WIDER, BEAUTIFUL CARDS */}
-      <div className="grid grid-cols-1 gap-8 px-4 sm:px-4 md:hidden">
-        {React.Children.map(children, (child) => (
-          <div className="min-h-48">{child}</div>
+      {/* MOBILE — WIDER, TALLER, REORDERABLE */}
+      <div className="grid grid-cols-1 gap-6 px-1 md:hidden">
+        {mobileChildren.map((child, i) => (
+          <div key={i} className="min-h-64">{child}</div>
         ))}
       </div>
 
@@ -40,7 +47,7 @@ export const BentoGrid = ({
         ))}
       </div>
 
-      {/* DESKTOP & TABLET — YOUR ORIGINAL PERFECT LAYOUT */}
+      {/* DESKTOP — ORIGINAL PERFECT LAYOUT */}
       <div
         className={cn(
           "hidden md:grid md:grid-cols-6 lg:grid-cols-5 gap-4 mx-auto px-10",
@@ -71,10 +78,18 @@ export const BentoGridItem = ({
   img,
   imgClassName,
   titleClassName,
-  contentType, // ADD THIS
+  contentType,
 }: BentoGridItemProps) => {
   const [copied, setCopied] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const assets = getAssetUrls();
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText("contact@mjolnirdesignstudios.com");
@@ -84,7 +99,7 @@ export const BentoGridItem = ({
   return (
     <div
       className={cn(
-        "relative h-full w-full overflow-hidden rounded-3xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none justify-between flex flex-col space-y-4 border border-white/[0.1]",
+        "relative h-full w-full overflow-hidden rounded-3xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none justify-between flex flex-col space-y-4 border-2 border-white/[0.15]",
         className
       )}
       style={{
@@ -103,7 +118,7 @@ export const BentoGridItem = ({
           />
         )}
 
-        {/* Custom Content Layer (NEW: we inject your animations here) */}
+        {/* Custom Content Layer */}
         <div className="absolute inset-0 pointer-events-none">
           {id === 1 && (
             <div className="w-full h-full">
@@ -124,7 +139,6 @@ export const BentoGridItem = ({
 
           {id === 2 && (
             <div className="w-full h-full">
-
               {/* Static Accretion Disk Fallback Image */}
               <Image
                 src="/Images/Backgrounds/Singularity.png"
@@ -133,7 +147,7 @@ export const BentoGridItem = ({
                 priority
                 className="object-cover object-center scale-80"
               />
-              
+
               <div className="absolute top-4 left-4">
                   <div className="group-hover/bento:translate-x-4 transition duration-200">
                     <div className="font-bold text-2xl lg:text-3xl text-white z-10">
@@ -183,9 +197,9 @@ export const BentoGridItem = ({
                 height={1080}
                 priority
                 className="
-                  w-full                /* Full width */
-                  h-auto                /* Maintains aspect ratio */
-                  max-w-none            /* Allows it to exceed container */
+                  w-full
+                  h-auto
+                  max-w-none
                   translate-y-28 md:translate-y-28 lg:translate-y-44
                   drop-shadow-2xl
                 "
@@ -195,7 +209,7 @@ export const BentoGridItem = ({
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
 
-            {/* Your original text — unchanged */}
+            {/* Text */}
             <div className="absolute top-4 left-4 z-10">
               <div className="group-hover/bento:translate-x-4 transition-all duration-500 ease-out">
                 <h3 className="font-black text-2xl md:text-3xl lg:text-3xl text-white drop-shadow-2xl tracking-tight">
@@ -216,17 +230,15 @@ export const BentoGridItem = ({
 
           {id === 5 && (
           <div className="w-full h-full relative">
-            {/* Force the container to have height */}
             <div className="absolute inset-0">
-              <Globe 
-                dark 
-                scale={1.2}
-                offsetX={200}
-                offsetY={1200}
+              <Globe
+                dark
+                scale={isMobile ? 1.1 : 1.2}
+                offsetX={isMobile ? 0 : 200}
+                offsetY={isMobile ? 0 : 1200}
                 className="w-full h-full"
               />
             </div>
-            {/* TEXT — BOTTOM-LEFT + HOVER ANIMATION RESTORED */}
             <div className="absolute top-4 left-4 z-10 pointer-events-none">
               <div className="group-hover/bento:translate-x-4 transition duration-200">
                 <div className="font-bold text-2xl lg:text-3xl text-white">
@@ -239,10 +251,10 @@ export const BentoGridItem = ({
             </div>
           </div>
         )}
-          
+
           {id === 6 && (
             <div className="w-full h-full overflow-hidden rounded-3xl">
-              {/* BIFROST BACKGROUND — FULLY FITTING */}
+              {/* BIFROST BACKGROUND */}
               <BifrostGradient
                 speed={1.3}
                 intensity={1.6}
@@ -251,40 +263,36 @@ export const BentoGridItem = ({
                 className="absolute inset-0"
               />
 
-              {/* CONTENT — EXACT SAME STYLE & SIZE AS YOUR OLD BOX 6 */}
+              {/* CONTENT */}
               <div className="absolute top-4 items-center w-full">
                 <div className="group-hover/bento:translate-y-2 transition duration-200">
                   <div className="relative z-10 flex h-full flex-col justify-end px-5 text-center">
-                    {/* Title — same size as old project */}
                     <div className="font-sans font-bold text-3xl lg:text-4xl text-white z-10">
-                      Open the 
-                      <ColorfulText text=" Bifrost!" className="inline-block text-3xl md:text-2xl lg:text-3xl"> 
+                      Open the
+                      <ColorfulText text=" Bifrost!" className="inline-block text-3xl md:text-2xl lg:text-3xl">
                       </ColorfulText>
                     </div>
 
-                    {/* Description — same gold, same size */}
-                    <div className="font-sans font-bold text-gold text-lg md:text-base lg:text-lg z-10 mb-2">
-                      {description || "Ready to forge something legendary?"}
+                    {/* Description — clamped to 1 line */}
+                    <div className="font-sans font-bold text-gold text-lg md:text-base lg:text-lg z-10 mb-2 truncate">
+                      {description || "Contact Mjolnir Design Studios"}
                     </div>
                   </div>
                 </div>
-                {/* Shimmer Button — exact same position as before */}
-                    <div className="relative flex z-20 items-center justify-center mt-2 mb-2 pointer-events-auto">
-                      <ShimmerButton
-                        title={copied ? "Email copied" : "Copy Email"}
-                        icon={<IoCopy />}
-                        position="left"
-                        otherClasses="mx-auto relative z-10"
-                        handleClick={() => {
-                          handleCopy();
-                        }}
-                      />
-                    </div>
+                <div className="relative flex z-20 items-center justify-center mt-2 mb-2 pointer-events-auto">
+                  <ShimmerButton
+                    title={copied ? "Email copied" : "Copy Email"}
+                    icon={<IoCopy />}
+                    position="left"
+                    otherClasses="mx-auto relative z-10"
+                    handleClick={() => {
+                      handleCopy();
+                    }}
+                  />
+                </div>
               </div>
             </div>
           )}
-
-
 
         </div>
 
@@ -295,7 +303,7 @@ export const BentoGridItem = ({
               "group-hover/bento:translate-x-2 transition duration-200 relative p-4 lg:p-10 flex flex-col"
             )}
           >
-        
+
           </div>
       </div>
     </div>

@@ -191,9 +191,9 @@ export default function Pricing() {
             const period = isAnnual ? "year" : "month";
 
             return (
-              <div key={tier.name} className="group relative">
-                <ElectricBorder color={tier.electricColor} thickness={4} className="absolute inset-0 rounded-3xl z-50">
-                  <div className="relative h-full p-8 rounded-3xl bg-black/40 backdrop-blur-xl border border-white/10 transition-all duration-300 group-hover:border-white/20">
+              <div key={tier.name} className="group relative flex flex-col">
+                <ElectricBorder color={tier.electricColor} thickness={4} className="rounded-3xl flex-1">
+                  <div className="relative h-full p-8 rounded-3xl bg-black/40 backdrop-blur-xl border-2 border-white/15 transition-all duration-300 group-hover:border-white/30">
                     {tier.popular && (
                       <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-xs font-bold">
                         MOST POPULAR
@@ -314,12 +314,12 @@ export default function Pricing() {
         <div className="mt-20 text-center">
           <p className="text-gray-500 mb-6 text-lg">Trusted Payment Services</p>
           <div className="flex items-center justify-center lg:gap-8 sm:gap-4 gap-3 flex-nowrap">
-            <Image src="/Icons/Cryptos/bitcoin-64.svg" alt="Bitcoin" width={48} height={48} className="w-7 h-7 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" />
-            <Image src="/icons/payments/cash-app-64.svg" alt="CashApp" width={56} height={56} className="w-7 h-7 sm:w-11 sm:h-11 lg:w-14 lg:h-14 object-contain" />
-            <Image src="/icons/payments/coinbase-64.svg" alt="Coinbase" width={56} height={56} className="w-7 h-7 sm:w-11 sm:h-11 lg:w-14 lg:h-14 object-contain" />
-            <Image src="/icons/payments/stripe-64.svg" alt="Stripe" width={48} height={48} className="w-7 h-7 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" />
-            <Image src="/icons/payments/uphold-64.svg" alt="Uphold" width={48} height={48} className="w-7 h-7 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" />
-            <Image src="/icons/payments/venmo-64.svg" alt="Venmo" width={48} height={48} className="w-7 h-7 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" />
+            <Image src="/Icons/Cryptos/bitcoin-64.svg" alt="Bitcoin" width={48} height={48} className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" />
+            <Image src="/Icons/Payments/cash-app-64.svg" alt="CashApp" width={56} height={56} className="w-8 h-8 sm:w-11 sm:h-11 lg:w-14 lg:h-14 object-contain" />
+            <Image src="/Icons/Payments/coinbase-64.svg" alt="Coinbase" width={56} height={56} className="w-8 h-8 sm:w-11 sm:h-11 lg:w-14 lg:h-14 object-contain" />
+            <Image src="/Icons/Payments/stripe-64.svg" alt="Stripe" width={48} height={48} className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" />
+            <Image src="/Icons/Payments/uphold-64.svg" alt="Uphold" width={48} height={48} className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" />
+            <Image src="/Icons/Payments/venmo-64.svg" alt="Venmo" width={48} height={48} className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" />
           </div>
         </div>
       </div>

@@ -48,7 +48,7 @@ export default function Hero() {
   return (
     <section id="hero" ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-neutral-950">
       <div className="relative z-10 text-center px-6 max-w-7xl mx-auto">
-        <h2 ref={line1Ref} className="mt-18 text-3xl md:text-3xl lg:text-4xl font-black text-white tracking-wider uppercase pt-32 sm:pt-16 md:pt-0">
+        <h2 ref={line1Ref} className="mt-18 text-3xl md:text-3xl lg:text-4xl font-black text-white tracking-wider uppercase pt-20 sm:pt-16 md:pt-0">
           Whosoever holds this hammer...
         </h2>
 

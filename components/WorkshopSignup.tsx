@@ -50,7 +50,7 @@ export default function WorkshopSignup() {
             Mjolnir <span className="text-gold">Forge</span>
           </h1>
           <p className="mt-6 text-xl text-gray-400">
-            Forge a modern website with our live workshops.
+            Attend one of our live workshops, and Forge your own modern Website.
           </p>
         </motion.div>
 
@@ -74,7 +74,7 @@ export default function WorkshopSignup() {
                 <div className="space-y-4 mb-8 flex-grow">
                   <div className="flex items-center gap-3 text-gray-300">
                     <Calendar className="w-5 h-5 text-emerald-400" />
-                    <span>Schedule First, Pay Later</span>
+                    <span>Book Workshop, and Pay by Credit Card</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300">
                     <Users className="w-5 h-5 text-emerald-400" />

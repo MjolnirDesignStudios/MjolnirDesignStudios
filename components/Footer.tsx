@@ -120,7 +120,7 @@ export default function Footer() {
 
 
           {/* Social Links */}
-          <div className="flex gap-3 sm:gap-6">
+          <div className="flex flex-nowrap gap-3 sm:gap-5 overflow-x-auto max-w-full">
             {socialMedia.map((profile) => (
               <motion.a
                 key={profile.id}
@@ -128,17 +128,17 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 5 }}
-                className="w-10 h-10 sm:w-14 sm:h-14 bg-black/60 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center justify-center hover:border-gold transition-all duration-300"
+                className="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0 bg-black/60 backdrop-blur-xl border-2 border-white/20 rounded-2xl flex items-center justify-center hover:border-gold transition-all duration-300"
               >
-                <Image src={profile.img} alt="" width={28} height={28} className="w-5 h-5 sm:w-7 sm:h-7" />
+                <Image src={profile.img} alt="" width={32} height={32} className="w-7 h-7 sm:w-8 sm:h-8" />
               </motion.a>
             ))}
           </div>
 
-
-          {/* Copyright */}
+          {/* Copyright — two rows */}
           <div className="text-center">
-            <p className="text-xl font-bold text-gold">Copyright © 2026 Mjölnir Design Studios LLC</p>
+            <p className="text-xl font-bold text-gold">Copyright ©</p>
+            <p className="text-xl font-bold text-gold">2026 Mjölnir Design Studios LLC</p>
             <p className="text-lg text-gray-400 mt-2">All rights reserved.</p>
           </div>
         </div>
